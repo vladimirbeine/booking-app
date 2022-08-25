@@ -4,13 +4,33 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
 
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle>{{ loadedPlaces[0].title }}</ion-card-subtitle>
-      <ion-card-title>Awesome Title</ion-card-title>
+      <ion-card-title>{{ loadedPlaces[0].title }}</ion-card-title>
+      <ion-card-subtitle>Price: {{ loadedPlaces[0].price | currency }}</ion-card-subtitle>
     </ion-card-header>
+    <ion-img [src]="loadedPlaces[0].imageUrl"></ion-img>
+    <ion-card-content>
+      {{ loadedPlaces[0].description }}
+    </ion-card-content>
   </ion-card>
+
+  <ion-list lines="full">
+    <ion-item
+    *ngFor="let place of loadedPlaces.slice(1)"
+    [routerLink]="['/', 'tabs', 'places', 'discover', 'details', place.id]"
+    detail
+    >
+      <ion-thumbnail slot="start">
+        <ion-img [src]="place.imageUrl"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ place.title }}</h2>
+        <p class="ion-text-wrap">{{ place.description }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
